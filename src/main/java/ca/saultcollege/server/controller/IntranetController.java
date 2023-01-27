@@ -1,6 +1,6 @@
 package ca.saultcollege.server.controller;
 
-import ca.saultcollege.server.data.Account;
+import ca.saultcollege.server.data.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

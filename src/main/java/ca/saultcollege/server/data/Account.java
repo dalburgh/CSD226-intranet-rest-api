@@ -1,6 +1,5 @@
 package ca.saultcollege.server.data;
 
-import org.yaml.snakeyaml.events.Event;
 
 public class Account {
     private static int COUNT;
@@ -11,7 +10,7 @@ public class Account {
     private String firstName;
     private String lastName;
 
-    public Account(String username, String password, String email, String firstName, String lastName) {
+    public Account( String username, String password, String email, String firstName, String lastName ) {
         COUNT++;
         this.ID = COUNT;
         this.username = username;
