@@ -3,29 +3,40 @@ package ca.saultcollege.server.data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.*;
+
 import java.util.Collection;
 
+@Entity
+@Table(name = "accounts")
 public class Account implements UserDetails {
-    private static int COUNT;
-    private int ID;
-    private String username;
-    private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
-    private String firstName;
-    private String lastName;
-
-    public Account( int ID,  String username, String password, String email, String firstName, String lastName ) {
-        COUNT++;
-        this.ID = ID;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    @Column(nullable = false, length = 64)
+    private String password;
+    @Transient
+    private String confirmPassword;
+    @Column(length = 64)
+    private String firstName = "";
+    @Column(length = 64)
+    private String lastName = "";
 
     public Account() {
-        COUNT++;
+    }
+
+    public Account(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public Account( String email, String password, String firstName, String lastName) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     @Override
@@ -35,32 +46,33 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
-    public String getUsername() {
-        return username;
+    public int getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(int id) {
+        this.id = id;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -93,15 +105,8 @@ public class Account implements UserDetails {
         this.lastName = lastName;
     }
 
-    public static int getCOUNT() {
-        return COUNT;
-    }
-
-    public int getId() {
-        return ID;
-    }
-
-    public void setId(int ID) {
-        this.ID = ID;
+    @Override
+    public String getUsername() {
+        return email;
     }
 }
