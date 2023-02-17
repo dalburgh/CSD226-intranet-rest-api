@@ -55,7 +55,7 @@ public class IntranetController {
     private ResponseEntity<String> signUp(@RequestBody Account signUpFormData) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String password = passwordEncoder.encode(signUpFormData.getPassword());
-        Account newAccount = new Account(signUpFormData.getEmail(), password);
+        Account newAccount = new Account(signUpFormData.getEmail(), password, signUpFormData.getFirstName(), signUpFormData.getLastName());
         Account savedAccount = accountRepository.save(newAccount);
         return ResponseEntity.ok("createAccount(): " + signUpFormData.getEmail());
     }
