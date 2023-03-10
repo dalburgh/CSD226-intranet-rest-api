@@ -44,7 +44,7 @@ public class ApplicationSecurity {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeHttpRequests()
-                .requestMatchers("/auth/login", "/publiccontent", "/signup", "/staffcontent").permitAll()
+                .requestMatchers("/auth/login", "/publiccontent", "/signup").permitAll()
                 .anyRequest().authenticated();
 
         http.exceptionHandling().authenticationEntryPoint(
